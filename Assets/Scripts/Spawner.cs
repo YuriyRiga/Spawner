@@ -9,12 +9,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float _repeatRate = 2f;
     [SerializeField] private int _poolCapacity = 5;
     [SerializeField] private int _poolMaxSize = 5;
-    
-    private ObjectPool<GameObject> _pool;
+
+    private ObjectPool<Enemy> _pool;
 
     private void Awake()
     {
-        _pool = new ObjectPool<GameObject>(
+        _pool = new ObjectPool<Enemy>(
             createFunc: () => InstantiateAndSetup(),
             actionOnGet: (obj) => ActionOnGet(obj),
             actionOnRelease: (obj) => obj.SetActive(false),
@@ -24,24 +24,26 @@ public class Spawner : MonoBehaviour
             maxSize: _poolMaxSize);
     }
 
-    private GameObject InstantiateAndSetup()
+    private Enemy InstantiateAndSetup()
     {
-        var obj = Instantiate(_prefab);
+        Enemy obj = Instantiate(_prefab).GetComponent<Enemy>();
         var movePlayer = obj.GetComponent<MovePlayer>();
 
         if (movePlayer != null)
         {
             movePlayer.SetPool(_pool);
+            movePlayer.SetEnemy(obj);
+            Vector3 direction = GetRandomDirection();
+            obj.SetDirection(direction);
         }
 
         return obj;
     }
 
-    private void ActionOnGet(GameObject obj)
+    private void ActionOnGet(Enemy obj)
     {
         int randomIndex = Random.Range(0, _spawnPoints.Count);
         obj.transform.position = _spawnPoints[randomIndex].transform.position;
-        obj.transform.eulerAngles = SetRandomRotation();
         obj.SetActive(true);
     }
 
@@ -55,14 +57,8 @@ public class Spawner : MonoBehaviour
         _pool.Get();
     }
 
-    private Vector3 SetRandomRotation()
+    private Vector3 GetRandomDirection()
     {
-        float minRange = 0f;
-        float maxRange = 360f;
-        float randomYRotation = Random.Range(minRange, maxRange);
-
-        Vector3 direction = new Vector3(transform.eulerAngles.x, randomYRotation, transform.eulerAngles.z);
-
-        return direction;
+        return new Vector3(Random.value, 0, Random.value).normalized; ;
     }
 }
