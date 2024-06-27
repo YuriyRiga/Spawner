@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using System.Collections;
 
-public class MovePlayer : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _timeLife = 5f;

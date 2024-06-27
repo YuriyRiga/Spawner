@@ -520,12 +520,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520de1059d99c1548bb7255a086c2c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 7645125953040307670, guid: 4546a620f2a271b438a0fe324ef3330d, type: 3}
+  _prefab: {fileID: 3461035485322406906, guid: 4546a620f2a271b438a0fe324ef3330d, type: 3}
   _spawnPoints:
-  - {fileID: 1224198209}
-  - {fileID: 2003359786}
-  - {fileID: 2100766903}
-  - {fileID: 1118719144}
+  - {fileID: 1224198210}
+  - {fileID: 2003359787}
+  - {fileID: 2100766904}
+  - {fileID: 1118719145}
   _repeatRate: 2
   _poolCapacity: 5
   _poolMaxSize: 5

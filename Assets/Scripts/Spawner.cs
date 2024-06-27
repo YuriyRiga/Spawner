@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _prefab;
-    [SerializeField] private List<GameObject> _spawnPoints;
+    [SerializeField] private Enemy _prefab;
+    [SerializeField] private List<Transform> _spawnPoints;
     [SerializeField] private float _repeatRate = 2f;
     [SerializeField] private int _poolCapacity = 5;
     [SerializeField] private int _poolMaxSize = 5;
@@ -26,8 +26,8 @@ public class Spawner : MonoBehaviour
 
     private Enemy InstantiateAndSetup()
     {
-        Enemy obj = Instantiate(_prefab).GetComponent<Enemy>();
-        var movePlayer = obj.GetComponent<MovePlayer>();
+        Enemy obj = Instantiate(_prefab);
+        var movePlayer = obj.GetComponent<Movement>();
 
         if (movePlayer != null)
         {
@@ -43,7 +43,9 @@ public class Spawner : MonoBehaviour
     private void ActionOnGet(Enemy obj)
     {
         int randomIndex = Random.Range(0, _spawnPoints.Count);
-        obj.transform.position = _spawnPoints[randomIndex].transform.position;
+        Transform spawnPoint = _spawnPoints[randomIndex];
+
+        obj.transform.position = spawnPoint.position;
         obj.SetActive(true);
     }
 
