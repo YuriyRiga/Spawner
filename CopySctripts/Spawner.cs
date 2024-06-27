@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Enemy _prefab;
-    [SerializeField] private List<SpawnPoint> _spawnPoints;
+    [SerializeField] private List<Transform> _spawnPoints;
     [SerializeField] private float _repeatRate = 2f;
     [SerializeField] private int _poolCapacity = 5;
     [SerializeField] private int _poolMaxSize = 5;
@@ -41,11 +41,11 @@ public class Spawner : MonoBehaviour
     private void ActionOnGet(Enemy obj)
     {
         int randomIndex = Random.Range(0, _spawnPoints.Count);
-        SpawnPoint spawnPoint = _spawnPoints[randomIndex];
+        Transform spawnPoint = _spawnPoints[randomIndex];
 
-        obj.transform.position = spawnPoint.transform.position;
-        obj.GetComponent<Renderer>().material.color = spawnPoint.ColorEnemy;
-        obj.SetTarget(spawnPoint.TargetPosition.position);
+        Vector3 direction = GetRandomDirection();
+        obj.SetDirection(direction);
+        obj.transform.position = spawnPoint.position;
         obj.SetActive(true);
     }
 
@@ -57,5 +57,10 @@ public class Spawner : MonoBehaviour
     private void GetPlayer()
     {
         _pool.Get();
+    }
+
+    private Vector3 GetRandomDirection()
+    {
+        return new Vector3(Random.value, 0, Random.value).normalized; ;
     }
 }

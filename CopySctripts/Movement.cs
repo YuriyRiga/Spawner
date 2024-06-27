@@ -33,13 +33,13 @@ public class Movement : MonoBehaviour
     {
         if (_enemy != null)
         {
-            MoveInDirection(_enemy.TargetDirection);
+            MoveInDirection(_enemy.Direction);
         }
     }
 
     private void MoveInDirection(Vector3 direction)
     {
-        transform.position = Vector3.MoveTowards(transform.position, direction, _speed * Time.deltaTime);
+        transform.position += direction * _speed * Time.deltaTime;
     }
 
     private IEnumerator ReturnToPoolAfterTime()
