@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
-    [SerializeField] private Transform _targetPosition;
+    [SerializeField] private Transform _target;
 
-    public Color ColorEnemy { get { return _targetPosition.GetComponent<Renderer>().material.color; } private set { } }
-    public Transform TargetPosition { get { return _targetPosition; } private set { } }
+    public Color ColorEnemy => _target.GetComponent<Renderer>().material.color;
+    public Transform Target => _target;
 }

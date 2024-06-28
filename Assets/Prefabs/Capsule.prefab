@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3808786890664327383}
   - component: {fileID: 5874824382907420201}
   - component: {fileID: 3461035485322406906}
-  - component: {fileID: -3871016408272850412}
+  - component: {fileID: 4007004483106554154}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -121,8 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a52258d5145f544ab1fe48aa4e0c8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _direction: {x: 0, y: 0, z: 0}
---- !u!114 &-3871016408272850412
+--- !u!114 &4007004483106554154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,8 +130,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 7645125953040307670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2503e6fe449b69948b07aa85b9cfd108, type: 3}
+  m_Script: {fileID: 11500000, guid: 32ff3d36a61f4b2408c8b9674d7e4ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _timeLife: 3
+  _timeLife: 5

@@ -17,7 +17,7 @@ public class Spawner : MonoBehaviour
         _pool = new ObjectPool<Enemy>(
             createFunc: () => InstantiateAndSetup(),
             actionOnGet: (obj) => ActionOnGet(obj),
-            actionOnRelease: (obj) => obj.SetActive(false),
+            actionOnRelease: (obj) => obj.gameObject.SetActive(false),
             actionOnDestroy: (obj) => Destroy(obj),
             collectionCheck: true,
             defaultCapacity: _poolCapacity,
@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour
     private Enemy InstantiateAndSetup()
     {
         Enemy obj = Instantiate(_prefab);
-        var movePlayer = obj.GetComponent<Movement>();
+        var movePlayer = obj.GetComponent<EnemyMovement>();
 
         if (movePlayer != null)
         {
@@ -45,8 +45,8 @@ public class Spawner : MonoBehaviour
 
         obj.transform.position = spawnPoint.transform.position;
         obj.GetComponent<Renderer>().material.color = spawnPoint.ColorEnemy;
-        obj.SetTarget(spawnPoint.TargetPosition.position);
-        obj.SetActive(true);
+        obj.GetComponent<EnemyMovement>().SetTarget(spawnPoint.Target);
+        obj.gameObject.SetActive(true);
     }
 
     private void Start()

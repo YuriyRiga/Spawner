@@ -2,14 +2,15 @@ using UnityEngine;
 using UnityEngine.Pool;
 using System.Collections;
 
-public class Movement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _timeLife = 5f;
-    
+
     private Enemy _enemy;
     private ObjectPool<Enemy> _objectPool;
-    private Coroutine _coroutine;
+    private Coroutine _lifeTimerCoroutine;
+    private Transform _target;
 
     public void SetPool(ObjectPool<Enemy> objectPool)
     {
@@ -21,25 +22,27 @@ public class Movement : MonoBehaviour
         _enemy = enemy;
     }
 
+    public void SetTarget(Transform target)
+    {
+        _target = target;
+    }
+
+    private void MoveTowardsTarget()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, _target.position, _speed * Time.deltaTime);
+    }
+
     private void OnEnable()
     {
-        if (_coroutine == null)
+        if (_lifeTimerCoroutine == null)
         {
-            _coroutine = StartCoroutine(ReturnToPoolAfterTime());
+            _lifeTimerCoroutine = StartCoroutine(ReturnToPoolAfterTime());
         }
     }
 
     private void Update()
     {
-        if (_enemy != null)
-        {
-            MoveInDirection(_enemy.TargetDirection);
-        }
-    }
-
-    private void MoveInDirection(Vector3 direction)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, direction, _speed * Time.deltaTime);
+        MoveTowardsTarget();
     }
 
     private IEnumerator ReturnToPoolAfterTime()
@@ -54,10 +57,10 @@ public class Movement : MonoBehaviour
 
     private void OnDisable()
     {
-        if (_coroutine != null)
+        if (_lifeTimerCoroutine != null)
         {
-            StopCoroutine(_coroutine);
-            _coroutine = null;
+            StopCoroutine(_lifeTimerCoroutine);
+            _lifeTimerCoroutine = null;
         }
     }
 }
